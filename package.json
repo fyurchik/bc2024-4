@@ -1,0 +1,26 @@
+{
+  "name": "bc2024-4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fyurchik/bc2024-4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fyurchik/bc2024-4/issues"
+  },
+  "homepage": "https://github.com/fyurchik/bc2024-4#readme",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "superagent": "^10.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
