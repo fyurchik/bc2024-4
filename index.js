@@ -85,3 +85,26 @@ const server = http.createServer(async (req, res) => {
       break;
     }
 
+    case "DELETE": {
+      try {
+        await fs.unlink(cacheFilePath);
+        res.writeHead(200, { "Content-Type": "text/plain" });
+        res.end("Картинка видалена");
+      } catch (err) {
+        res.writeHead(404, { "Content-Type": "text/plain" });
+        res.end("Картинка не знайдена");
+      }
+      break;
+    }
+
+    default: {
+      res.writeHead(405, { "Content-Type": "text/plain" });
+      res.end("Метод не дозволено");
+      break;
+    }
+  }
+});
+
+server.listen(port, host, () => {
+  console.log(`Сервер запущено на ${host}:${port}`);
+});
