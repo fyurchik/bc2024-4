@@ -64,3 +64,24 @@ const server = http.createServer(async (req, res) => {
       }
       break;
     }
+
+    case "PUT": {
+      let imageData = [];
+
+      req.on("data", (chunk) => {
+        imageData.push(chunk);
+      });
+      req.on("end", async () => {
+        imageData = Buffer.concat(imageData);
+        try {
+          await fs.writeFile(cacheFilePath, imageData);
+          res.writeHead(201, { "Content-Type": "text/plain" });
+          res.end("Картинка збережена");
+        } catch (err) {
+          res.writeHead(500, { "Content-Type": "text/plain" });
+          res.end("Помилка при записі файлу");
+        }
+      });
+      break;
+    }
+
