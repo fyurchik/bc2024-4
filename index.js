@@ -41,3 +41,26 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  const cacheFilePath = getCacheFilePath(httpCode);
+
+  switch (req.method) {
+    case "GET": {
+      try {
+        const imageData = await fs.readFile(cacheFilePath);
+        res.writeHead(200, { "Content-Type": "image/jpeg" });
+        console.log("взято з кешу");
+        res.end(imageData);
+      } catch (err) {
+        try {
+          const httpCatImage = await fetchFromHttpCat(httpCode);
+          console.log("взято з сайту");
+          await fs.writeFile(cacheFilePath, httpCatImage);
+          res.writeHead(200, { "Content-Type": "image/jpeg" });
+          res.end(httpCatImage);
+        } catch (fetchError) {
+          res.writeHead(404, { "Content-Type": "text/plain" });
+          res.end("картинка не знайдена на http.cat");
+        }
+      }
+      break;
+    }
